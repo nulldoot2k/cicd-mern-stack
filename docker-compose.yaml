@@ -1,18 +1,27 @@
 ---
 version: "3.9"
 services:
-  app:
+  client:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    networks:
+      - mern
+
+  server:
     build: 
       context: ./server
       dockerfile: Dockerfile
     ports:
       - '4000:4000'
-    environment:
-      - MONGODB_URI=mongodb://mongodb:27017/employees
-    # depends_on:
-    #   - mongodb
-    # networks:
-    #   - mern
+    env_file:
+      - server/.env
+    depends_on:
+      - mongodb
+    networks:
+      - mern
 
   mongodb:
     image: mongo:latest
@@ -22,21 +31,22 @@ services:
       - PGID=1000
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
-      - MONGODB_DATABASE=admin
+      - MONGODB_DATABASE=employees
     ports:
       - "27017:27017"
     volumes:
       - "data:/data/db"
       - "log:/var/log/mongodb"
+      - ./database/mongodb-setup.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     command: [--auth]
     restart: always
-    # networks:
-    #   - mern
+    networks:
+      - mern
 
 volumes:
   log: null
   data: null
 
-# networks:
-#   mern:
-#     driver: bridge
+networks:
+  mern:
+    driver: bridge

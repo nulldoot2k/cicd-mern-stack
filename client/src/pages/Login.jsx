@@ -12,6 +12,7 @@ function Login() {
     axios.post('http://localhost:4000/login', {email, password})
     .then(result => { 
         if (result.data.success) {
+          localStorage.setItem('isLoggedIn', true); // save cache into localstorage
           navigate('/home');
         }
       })

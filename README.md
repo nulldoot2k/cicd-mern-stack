@@ -4,7 +4,7 @@
 docker-compose up -d --build --force-recreate
 ```
 
-Open chorme: [http://localhost:4000](http://localhost:4000/login)
+Open chorme: [http://localhost:3000](http://localhost:3000/login)
 
 ## Client - FrontEnd
 
@@ -56,25 +56,17 @@ user Admin: **use admin**
 ```bash
 use admin
 db.createUser({ 
-    user: "hello12345",
-    pwd: "kjghjewht4t643yghbvf54egdsgds",
-    roles: [{
+  user: "hello12345",
+  pwd: "kjghjewht4t643yghbvf54egdsgds",
+  roles: [{
     role: "readWrite",
     db: "employees"
-    }]
+  }]
 })
 ```
 
 Connect to MongoDB
 
 ```bash
-mongosh "mongodb://hello12345:kjghjewht4t643yghbvf54egdsgds@localhost:27017/employees?authSource=admin"
+mongosh "mongodb://user1Mongo:YWRtaW5AIWFkbWluMTIzCg@localhost:27017/employees?authSource=admin"
 ```
-
-## Reference
-
-- https://viblo.asia/p/trien-khai-mongodb-voi-docker-tren-digital-ocean-phan-1-standalone-QpmlezED5rd
-
-- https://hub.docker.com/_/mongo
-
-- https://hackernoon.com/vi/mongodb-v%C3%A0-docker-so%E1%BA%A1n-c%C3%A1ch-t%E1%BB%B1-%C4%91%E1%BB%99ng-b%E1%BA%ADt-ng%C6%B0%E1%BB%9Di-d%C3%B9ng-v%C3%A0-m%E1%BA%ADt-kh%E1%BA%A9u-t%C3%B9y-ch%E1%BB%89nh
