@@ -12,7 +12,7 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault()
     axios
-      .post('http://localhost:3000/register', {username, email, password, confirmPassword})
+      .post('http://localhost:4000/register', {username, email, password, confirmPassword})
       .then(result => { console.log(result.data.message)
         if (result.data.success) {
           navigate('/login')

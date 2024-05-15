@@ -1,0 +1,42 @@
+---
+version: "3.9"
+services:
+  app:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - '4000:4000'
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/employees
+    # depends_on:
+    #   - mongodb
+    # networks:
+    #   - mern
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb-standalone
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGODB_DATABASE=admin
+    ports:
+      - "27017:27017"
+    volumes:
+      - "data:/data/db"
+      - "log:/var/log/mongodb"
+    command: [--auth]
+    restart: always
+    # networks:
+    #   - mern
+
+volumes:
+  log: null
+  data: null
+
+# networks:
+#   mern:
+#     driver: bridge
